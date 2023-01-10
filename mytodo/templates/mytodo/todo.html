@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Django ajax TODO list</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+
+      <form class="row mt-5 pt-5" id="form">
+        <div class="col-12 col-lg-6 offset-lg-2">
+          <div class="input-group">
+            <input type="text" class="form-control" id="todo_name" placeholder="Add a todo" required>
+            <button type="submit" class="text-white btn btn-info">Submit</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="row my-5">
+        <div class="col-12 col-lg-6 offset-lg-2">
+          <ul class="list-group">
+            <!-- List of todos goes here -->
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>z<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function() {
+        // get the CSRF token
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+        /* ... */
+        /* send a POST request to create a todo */
+        $('#form').submit(function(e) {
+          e.preventDefault(); // prevent the page from reload
+          var url = "/mytodo/todo_create"
+          var data = {
+            todo_name: $('#todo_name').val(),
+            csrfmiddlewaretoken: csrftoken,
+          }
+    
+          $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+          }).done(function(response) {
+            if (response.status === 'error') {
+            alert("todos must have unique name.")
+          } else if (response.status === 'created') {
+            var temp = `
+            <li class="list-group-item d-flex justify-content-between">
+              <span>${response.todo_name}</span>
+              <div>
+                <button id="edit" class="btn btn-success btn-sm" type="submit">Edit</button>
+                <button id="delete" class="btn btn-danger btn-sm" type="submit">Delete</button>
+              </div>
+            </li>
+            `
+            $('.list-group').append(temp)
+          }
+        })
+      $(this).trigger('reset')
+    })
+  })
+    </script>
+  </body>
+</html>

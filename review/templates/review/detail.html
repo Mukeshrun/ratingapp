@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+    <div class="container-fluid bg-dark">
+        <div class="row">
+            <div class="col-9 text-white text-center offset-1">
+                <h1>DASHBOARD</h1>
+            </div>
+            <div class="col-2">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% for i in key2 %}
+Hello {{i.name}}
+{% endfor %}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="logout">Logout</a></li>
+                    </ul>
+                  </div>
+        </div>
+    </div>
+      
+    <!-- {% for i in key2 %}
+Username:{{i.name}}
+{% endfor %} -->
+<div class="container">
+    <div class="row justify-content-evenly mt-0">
+        <div class="col-8">
+            <table class="table table-success table-striped" border="3px solid black" margin-top="5px">
+                <tr><th>Subject</th><th>Rating</th></tr>
+            {% if python %}
+           <tr><td>Python</td><td>{{python}}</td></tr>
+            {% endif %}
+            {% if javascript %}
+            <tr><td>Javascript</td><td>{{javascript}}</td></tr>
+            {% endif %}
+            {% if java %}
+            <tr><td>Java</td><td>{{java}}</td></tr>
+            {% endif %}
+            {% if css %}
+            <tr><td>Css</td><td>{{css}}</td></tr>
+            {% endif %}<br>
+            {% if key %}
+            <tr><td>Total</td><td>{{key}}</td></tr>
+           {% endif %}
+        </table>
+        </div>
+    </div>
+    <div class="row justify-content-evenly mt-0">
+        <div class="col-8">
+            <table class="table table-success table-striped" border="3px solid black" margin-top="5px"">
+                <tr>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Rating</th>
+                </tr>
+                {% for i in key1 %}
+                <tr>
+                    <td>{{i.student_name}}</td>
+                    <td>{{i.course1}}</td>
+                    <td>{{i.rating}}</td>
+                </tr>
+        
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+ </body>
+
+</html>
+                    <!-- {% for i in key2 %}
+Hello {{i.name}}
+{% endfor %} -->

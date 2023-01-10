@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function teacher(a)
+        {
+           var xmlhttp = new XMLHttpRequest();
+             xmlhttp.onreadystatechange=function()
+             {
+                
+                document.getElementById("res").innerHTML=xmlhttp.responseText;
+               
+             }
+            xmlhttp.open("GET","/review/faculty?q="+a,true);
+            xmlhttp.send();
+        }
+     
+        function student(a)
+        {
+           var xmlhttp = new XMLHttpRequest();
+             xmlhttp.onreadystatechange=function()
+             {
+                
+                document.getElementById("res1").innerHTML=xmlhttp.responseText;
+               
+             }
+            xmlhttp.open("GET","/review/student?q="+a,true);
+            xmlhttp.send();
+        }
+     
+     </script>
+     
+    
+</head>
+<body>
+    <select onchange="teacher(this.value)">
+        <option value="">Select Course</option>
+    {% for i in key %}
+    <option value="{{i.id}}">{{i.course}}</option>
+    {% endfor %}    
+    </select>
+    <div id="res">
+        <select name="" id="">
+            <option value="">Select Teacher</option>
+        </select>
+    </div>
+    <div id="res1" >
+        <select>
+            <option value="">Select Student</option>
+
+        </select>
+    </div>
+</body>
+</html>
